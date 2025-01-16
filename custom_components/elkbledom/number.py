@@ -5,7 +5,7 @@ from homeassistant.components.number import (
     NumberEntityDescription,
 )
 
-from .elkbledom import BLEDOMInstance
+from .illumi import IllumiInstance
 from .const import DOMAIN
 
 from homeassistant.helpers.entity import DeviceInfo
@@ -32,8 +32,8 @@ async def async_setup_entry(
 class BLEDOMSlider(NumberEntity):
     """Blauberg Fan entity"""
 
-    def __init__(self, bledomInstance: BLEDOMInstance, attr_name: str, entry_id: str) -> None:
-        self._instance = bledomInstance
+    def __init__(self, illumiInstance: IllumiInstance, attr_name: str, entry_id: str) -> None:
+        self._instance = illumiInstance
         self._attr_name = attr_name
         self._attr_unique_id = self._instance.address
         self._effect_speed = 0

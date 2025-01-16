@@ -6,7 +6,7 @@ from homeassistant.const import CONF_MAC, EVENT_HOMEASSISTANT_STOP
 from homeassistant.const import Platform
 
 from .const import DOMAIN, CONF_RESET, CONF_DELAY
-from .elkbledom import BLEDOMInstance
+from .illumi import IllumiInstance
 import logging
 
 LOGGER = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     mac = entry.options.get(CONF_MAC, None) or entry.data.get(CONF_MAC, None)
     LOGGER.debug("Config: Reset: %s, Delay: %s, Mac: %s", reset, delay, mac)
 
-    instance = BLEDOMInstance(entry.data[CONF_MAC], reset, delay, hass)
+    instance = IllumiInstance(entry.data[CONF_MAC], reset, delay, hass)
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = instance
    
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)

@@ -94,7 +94,7 @@ def retry_bluetooth_connection_error(func: WrapFuncType) -> WrapFuncType:
     """
 
     async def _async_wrap_retry_bluetooth_connection_error(
-        self: "BLEDOMInstance", *args: Any, **kwargs: Any
+        self: "IllumiInstance", *args: Any, **kwargs: Any
     ) -> Any:
         # LOGGER.debug("%s: Starting retry loop", self.name)
         attempts = DEFAULT_ATTEMPTS
@@ -179,7 +179,7 @@ class DeviceData():
         """Update from BLE advertisement data."""
         LOGGER.debug("Parsing Govee BLE advertisement data: %s", service_info)
 
-class BLEDOMInstance:
+class IllumiInstance:
     def __init__(self, address, reset: bool, delay: int, hass) -> None:
         self.loop = asyncio.get_running_loop()
         self._address = address
@@ -326,12 +326,12 @@ class BLEDOMInstance:
     @DeprecationWarning
     @retry_bluetooth_connection_error
     async def set_white(self, intensity: int):
-        await self._write([0x7e, 0x00, 0x01, int(intensity*100/255), 0x00, 0x00, 0x00, 0x00, 0xef])
+        await self._write([0x5A, 0x06, 0x01, int(intensity*100/255)])
         self._brightness = intensity
 
     @retry_bluetooth_connection_error
     async def set_brightness(self, intensity: int):
-        await self._write([0x7e, 0x04, 0x01, int(intensity*100/255), 0xff, 0x00, 0xff, 0x00, 0xef])
+        await self._write([0x5A, 0x03, 0x01, int(intensity*100/255)])
         self._brightness = intensity
 
     @retry_bluetooth_connection_error

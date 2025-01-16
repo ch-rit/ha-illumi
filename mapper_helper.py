@@ -34,7 +34,7 @@ def retry_bluetooth_connection_error(func: WrapFuncType) -> WrapFuncType:
     """
 
     async def _async_wrap_retry_bluetooth_connection_error(
-        self: "BLEDOMInstance", *args: Any, **kwargs: Any
+        self: "IllumiInstance", *args: Any, **kwargs: Any
     ) -> Any:
         # LOGGER.debug("%s: Starting retry loop", self.name)
         attempts = DEFAULT_ATTEMPTS

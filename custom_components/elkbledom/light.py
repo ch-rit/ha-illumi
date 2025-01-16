@@ -4,7 +4,7 @@ import logging
 import voluptuous as vol
 from typing import Any, Optional, Tuple
 
-from .elkbledom import BLEDOMInstance
+from .illumi import IllumiInstance
 from .const import DOMAIN, EFFECTS, EFFECTS_list
 
 from homeassistant.const import CONF_MAC
@@ -34,11 +34,11 @@ PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
 async def async_setup_entry(hass, config_entry, async_add_devices):
     instance = hass.data[DOMAIN][config_entry.entry_id]
     await instance.update()
-    async_add_devices([BLEDOMLight(instance, config_entry.data["name"], config_entry.entry_id)])
+    async_add_devices([IllumiLight(instance, config_entry.data["name"], config_entry.entry_id)])
 
-class BLEDOMLight(LightEntity):
-    def __init__(self, bledomInstance: BLEDOMInstance, name: str, entry_id: str) -> None:
-        self._instance = bledomInstance
+class IllumiLight(LightEntity):
+    def __init__(self, illumiInstance: IllumiInstance, name: str, entry_id: str) -> None:
+        self._instance = illumiInstance
         self._entry_id = entry_id
         self._attr_supported_color_modes = {ColorMode.RGB, ColorMode.COLOR_TEMP, ColorMode.WHITE}
         self._attr_supported_features = LightEntityFeature.EFFECT
