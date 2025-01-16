@@ -67,7 +67,7 @@ NAME_ARRAY = ["DMRRBA-007"]
 WRITE_CHARACTERISTIC_UUIDS = ["6e400002-b5a3-f393-e0a9-e50e24dcca9e"]
 READ_CHARACTERISTIC_UUIDS  = ["6e400003-b5a3-f393-e0a9-e50e24dcca9e"]
 TURN_ON_CMD = [[0x5A, 0x01, 0x02, 0x01]]
-TURN_OFF_CMD = [[0x5A, 0x01, 0x02, 0x01]]
+TURN_OFF_CMD = [[0x5A, 0x01, 0x02, 0x00]]
 
 MIN_COLOR_TEMPS_K = [2700,2700,2700,2700,2700]
 MAX_COLOR_TEMPS_K = [6500,6500,6500,6500,6500]
@@ -310,19 +310,10 @@ class IllumiInstance:
         await self._write([0x7e, 0x00, 0x05, 0x02, color_temp_percent, brightness_percent, 0x00, 0x00, 0xef])
 
     @retry_bluetooth_connection_error
-    #  async def set_color(self, rgb: Tuple[int, int, int]):
-    #    r, g, b = rgb
-    #    await self._write([0x5a, 0x07, 0x01, r, g, b ]);
-    #   self._rgb_color = rgb 
     async def set_color(self, rgb: Tuple[int, int, int]):
-        r, g, b = [x / 255.0 for x in rgb]  # Normalize RGB to 0–1
-        h, s, _ = rgb_to_hsv(r, g, b)       # Convert to HSV
-        h_8bit = round(h * 255)             # Convert Hue to 8-bit
-        s_8bit = round(s * 255)             # Convert Saturation to 8-bit
-
-        # Write the data using Hue and Saturation
-        await self._write([0x5a, 0x07, 0x01, h_8bit, s_8bit])
-        self._rgb_color = rgb
+        r, g, b = rgb
+        await self._write([0x5a, 0x07, 0x01, r, g, b ]);
+        self._rgb_color = rgb 
 
     @DeprecationWarning
     @retry_bluetooth_connection_error
