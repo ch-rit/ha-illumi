@@ -323,7 +323,7 @@ class IllumiInstance:
 
     @retry_bluetooth_connection_error
     async def set_brightness(self, intensity: int):
-        await self._write([0x5A, 0x03, 0x01, int(intensity*100/255)])
+        await self._write([0x5A, 0x03, 0x01, int(intensity)])
         self._brightness = intensity
 
     @retry_bluetooth_connection_error
