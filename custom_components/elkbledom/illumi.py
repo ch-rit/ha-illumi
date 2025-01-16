@@ -1,7 +1,7 @@
 import asyncio
 from datetime import datetime
 from homeassistant.exceptions import ConfigEntryNotReady
-
+from colorsys import rgb_to_hsv
 from bleak.backends.device import BLEDevice
 from bleak.backends.service import BleakGATTServiceCollection
 from bleak.exc import BleakDBusError
@@ -310,9 +310,18 @@ class IllumiInstance:
         await self._write([0x7e, 0x00, 0x05, 0x02, color_temp_percent, brightness_percent, 0x00, 0x00, 0xef])
 
     @retry_bluetooth_connection_error
+    #  async def set_color(self, rgb: Tuple[int, int, int]):
+    #    r, g, b = rgb
+    #    await self._write([0x5a, 0x07, 0x01, r, g, b ]);
+    #   self._rgb_color = rgb 
     async def set_color(self, rgb: Tuple[int, int, int]):
-        r, g, b = rgb
-        await self._write([0x5a, 0x07, 0x01, r, g, b ]);
+        r, g, b = [x / 255.0 for x in rgb]  # Normalize RGB to 0–1
+        h, s, _ = rgb_to_hsv(r, g, b)       # Convert to HSV
+        h_8bit = round(h * 255)             # Convert Hue to 8-bit
+        s_8bit = round(s * 255)             # Convert Saturation to 8-bit
+
+        # Write the data using Hue and Saturation
+        await self._write([0x5a, 0x07, 0x01, h_8bit, s_8bit])
         self._rgb_color = rgb
 
     @DeprecationWarning
