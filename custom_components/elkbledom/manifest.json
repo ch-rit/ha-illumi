@@ -1,5 +1,5 @@
 {
-  "domain": "elkbledom",
+  "domain": "illumi",
   "name": "Illumi",
   "bluetooth": [
       { "local_name": "DMMRBA-*" }
@@ -7,9 +7,9 @@
   "codeowners": ["@cr-insane"],
   "config_flow": true,
   "dependencies": ["bluetooth"],
-  "documentation": "https://github.com/dave-code-ruiz/elkbledom",
+  "documentation": "https://github.com/cr-insane/illumi",
   "iot_class": "local_polling",
-  "issue_tracker": "https://github.com/dave-code-ruiz/elkbledom/issues",
+  "issue_tracker": "https://github.com/cr-insane/illumi/issues",
   "requirements": ["bleak-retry-connector>=3.5.0","bleak>=0.22.2"],
   "version": "1.2.2"
 }

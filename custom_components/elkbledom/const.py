@@ -1,6 +1,6 @@
 from enum import Enum
 
-DOMAIN = "elkbledom"
+DOMAIN = "illumi"
 CONF_RESET = "reset"
 CONF_DELAY = "delay"
 
