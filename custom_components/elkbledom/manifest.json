@@ -1,14 +1,10 @@
 {
   "domain": "elkbledom",
-  "name": "ElkBLEDOM",
+  "name": "Illumi",
   "bluetooth": [
-      { "local_name": "ELK-BULB*" },
-      { "local_name": "ELK-BLE*" },
-      { "local_name": "MELK*" },
-      { "local_name": "LEDBLE*" },
-      { "local_name": "ELK-LAMPL*" }
+      { "local_name": "DMMRBA-*" }
     ],
-  "codeowners": ["@dave-code-ruiz"],
+  "codeowners": ["@cr-insane"],
   "config_flow": true,
   "dependencies": ["bluetooth"],
   "documentation": "https://github.com/dave-code-ruiz/elkbledom",
