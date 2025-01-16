@@ -63,21 +63,9 @@ LOGGER = logging.getLogger(__name__)
 # [be:59:7a:00:08:d5][LE]>
 
 # CHANGES ARRAYS TO DICT OR MODELDB OBJECT WITH ALL MODEL INFORMATION
-NAME_ARRAY = ["ELK-BLE",
-              "LEDBLE",
-              "MELK",
-              "ELK-BULB",
-              "ELK-LAMPL"]
-WRITE_CHARACTERISTIC_UUIDS = ["0000fff3-0000-1000-8000-00805f9b34fb",
-                              "0000ffe1-0000-1000-8000-00805f9b34fb",
-                              "0000fff3-0000-1000-8000-00805f9b34fb",
-                              "0000fff3-0000-1000-8000-00805f9b34fb",
-                              "0000fff3-0000-1000-8000-00805f9b34fb"]
-READ_CHARACTERISTIC_UUIDS  = ["0000fff4-0000-1000-8000-00805f9b34fb",
-                              "0000ffe2-0000-1000-8000-00805f9b34fb",
-                              "0000fff4-0000-1000-8000-00805f9b34fb",
-                              "0000fff4-0000-1000-8000-00805f9b34fb",
-                              "0000fff4-0000-1000-8000-00805f9b34fb"]
+NAME_ARRAY = ["DMRRBA-007"]
+WRITE_CHARACTERISTIC_UUIDS = ["6e400002-b5a3-f393-e0a9-e50e24dcca9e"]
+READ_CHARACTERISTIC_UUIDS  = ["6e400003-b5a3-f393-e0a9-e50e24dcca9e"]
 TURN_ON_CMD = [[0x7e, 0x00, 0x04, 0xf0, 0x00, 0x01, 0xff, 0x00, 0xef],
                [0x7e, 0x00, 0x04, 0x01, 0x00, 0x00, 0x00, 0x00, 0xef],
                [0x7e, 0x00, 0x04, 0x01, 0x00, 0x00, 0x00, 0x00, 0xef],
@@ -332,7 +320,7 @@ class BLEDOMInstance:
     @retry_bluetooth_connection_error
     async def set_color(self, rgb: Tuple[int, int, int]):
         r, g, b = rgb
-        await self._write([0x7e, 0x00, 0x05, 0x03, r, g, b, 0x00, 0xef])
+        await self._write([0x5a, 0x07, 0x01, r, g, b ]);
         self._rgb_color = rgb
 
     @DeprecationWarning
