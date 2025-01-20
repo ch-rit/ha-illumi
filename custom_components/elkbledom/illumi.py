@@ -218,7 +218,28 @@ class IllumiInstance:
         # self._adv_data: AdvertisementData | None = None
         self._detect_model()
         LOGGER.debug('Model information for device %s : ModelNo %s, Turn on cmd %s, Turn off cmd %s, rssi %s', self._device.name, self._model, self._turn_on_cmd, self._turn_off_cmd, self.rssi)
+    def format_order_hex(self, value: int) -> str:
+        """
+        Formats a value into a 4-character hex string suitable for BLE communication.
+        Swaps bytes if the value exceeds 255.
         
+        Args:
+            value (int): Brightness value to format.
+            
+        Returns:
+            str: Formatted hex string.
+        """
+        hex_str = f"{value:02x}"
+        if len(hex_str) <= 2:
+            return hex_str + "00"  # Pad with '00' if it's a single byte value
+        
+        # Swap bytes for values requiring more than one byte
+        last_two = hex_str[-2:]  # Least significant byte
+        rest = hex_str[:-2]      # Most significant byte
+        if len(rest) == 1:
+            rest = "0" + rest    # Pad if rest is a single character
+        return last_two + rest
+    
     def _detect_model(self):
         x = 0
         for name in NAME_ARRAY:
@@ -324,14 +345,13 @@ class IllumiInstance:
     @retry_bluetooth_connection_error
     async def set_brightness(self, intensity: int):
 
-    # Scale brightness to 12-bit range (0–4096)
-        brightness_12bit = int(intensity * 4096 / 255)
+    # Map intensity (1–100) to the device's 12-bit brightness range (0–4096)
+        brightness_12bit = int((intensity / 100) * 4096)
     
-    # Split the 12-bit value into two bytes (high and low)
-        brightness_high = (brightness_12bit >> 8) & 0xFF  # Upper 8 bits
-        brightness_low = brightness_12bit & 0xFF          # Lower 8 bits
-        await self._write([0x5A, 0x03, 0x01, brightness_high, brightness_low])
-        self._brightness = intensity
+        # Format the brightness value for BLE command
+        formatted_brightness = format_order_hex(brightness_12bit)
+        command = bytes.fromhex(f"5A0301{formatted_brightness}")
+        await self._write(command)
 
     @retry_bluetooth_connection_error
     async def set_effect_speed(self, value: int):
