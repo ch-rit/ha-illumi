@@ -316,7 +316,7 @@ class IllumiInstance:
     #    self._color_temp = warm
 
     @retry_bluetooth_connection_error
-    async def set_color_temp_kelvin(self, value: int):
+    async def set_color_temp_kelvin(self, value: int, brightness: int):
         # White colours are represented by colour temperature percentage from 0x0 to 0x64 from warm to cool
         # Warm (0x0) is only the warm white LED, cool (0x64) is only the white LED and then a mixture between the two
         self._color_temp_kelvin = value
@@ -329,11 +329,13 @@ class IllumiInstance:
             brightness = self._brightness
         brightness_percent = int(brightness * 100 / 255) 
         await self._write([0x7e, 0x00, 0x05, 0x02, color_temp_percent, brightness_percent, 0x00, 0x00, 0xef]) """
+        if brightness is None:
+            brightness = self._brightness
         formatted_white = self.format_order_hex(value)
         command = bytes.fromhex(f"5A0601{formatted_white}")
         await self._write(command)
-        #await self.set_brightness(brightness)
-        #self._brightness = brightness
+        await self.set_brightness(brightness)
+        self._brightness = brightness
 
     @retry_bluetooth_connection_error
     async def set_color(self, rgb: Tuple[int, int, int]):
