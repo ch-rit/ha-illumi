@@ -306,14 +306,14 @@ class IllumiInstance:
     def effect(self):
         return self._effect
     
-    @retry_bluetooth_connection_error
-    async def set_color_temp(self, value: int):
-        if value > 100:
-            value = 100
-        warm = value
-        cold = 100 - value
-        await self._write([0x7e, 0x00, 0x05, 0x02, warm, cold, 0x00, 0x00, 0xef])
-        self._color_temp = warm
+    #@retry_bluetooth_connection_error
+    #async def set_color_temp(self, value: int):
+    #    if value > 100:
+    #        value = 100
+    #    warm = value
+    #    cold = 100 - value
+    #    await self._write([0x7e, 0x00, 0x05, 0x02, warm, cold, 0x00, 0x00, 0xef])
+    #    self._color_temp = warm
 
     @retry_bluetooth_connection_error
     async def set_color_temp_kelvin(self, value: int, brightness: int):
@@ -332,6 +332,7 @@ class IllumiInstance:
         formatted_white = self.format_order_hex(value)
         command = bytes.fromhex(f"5A0601{formatted_white}")
         await self._write(command)
+        await self.set_brightness(brightness)
         self._brightness = brightness
 
     @retry_bluetooth_connection_error
@@ -340,13 +341,13 @@ class IllumiInstance:
         await self._write([0x5a, 0x07, 0x01, r, g, b ]);
         self._rgb_color = rgb 
 
-    @DeprecationWarning
-    @retry_bluetooth_connection_error
-    async def set_white(self, intensity: int):
-        formatted_white = self.format_order_hex(intensity)
-        command = bytes.fromhex(f"5A0601{formatted_white}")
-        await self._write(command)
-        self._brightness = intensity
+    #@DeprecationWarning
+    #@retry_bluetooth_connection_error
+    #async def set_white(self, intensity: int):
+    #    formatted_white = self.format_order_hex(intensity)
+    #    command = bytes.fromhex(f"5A0601{formatted_white}")
+    #    await self._write(command)
+    #    self._brightness = intensity
 
     @retry_bluetooth_connection_error
     async def set_brightness(self, intensity: int):
