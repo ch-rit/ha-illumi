@@ -69,8 +69,8 @@ READ_CHARACTERISTIC_UUIDS  = ["6e400003-b5a3-f393-e0a9-e50e24dcca9e"]
 TURN_ON_CMD = [[0x5A, 0x01, 0x02, 0x01]]
 TURN_OFF_CMD = [[0x5A, 0x01, 0x02, 0x00]]
 
-MIN_COLOR_TEMPS_K = [2700,2700,2700,2700,2700]
-MAX_COLOR_TEMPS_K = [6500,6500,6500,6500,6500]
+MIN_COLOR_TEMPS_K = [1000]
+MAX_COLOR_TEMPS_K = [6500]
 
 DEFAULT_ATTEMPTS = 3
 #DISCONNECT_DELAY = 120
@@ -339,7 +339,9 @@ class IllumiInstance:
     @DeprecationWarning
     @retry_bluetooth_connection_error
     async def set_white(self, intensity: int):
-        await self._write([0x5A, 0x06, 0x01, int(intensity*100/255)])
+        formatted_white = self.format_order_hex(intensity)
+        command = bytes.fromhex(f"5A0601{formatted_white}")
+        await self._write(command)
         self._brightness = intensity
 
     @retry_bluetooth_connection_error
