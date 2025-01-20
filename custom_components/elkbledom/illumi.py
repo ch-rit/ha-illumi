@@ -331,8 +331,8 @@ class IllumiInstance:
     # Split the 12-bit value into two bytes (high and low)
         brightness_high = (brightness_12bit >> 8) & 0xFF  # Upper 8 bits
         brightness_low = brightness_12bit & 0xFF          # Lower 8 bits
-        self._brightness = intensity
         await self._write([0x5A, 0x03, 0x01, brightness_high, brightness_low])
+        self._brightness = intensity
 
     @retry_bluetooth_connection_error
     async def set_effect_speed(self, value: int):
