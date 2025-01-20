@@ -349,9 +349,10 @@ class IllumiInstance:
         brightness_12bit = int((intensity / 100) * 4096)
     
         # Format the brightness value for BLE command
-        formatted_brightness = format_order_hex(brightness_12bit)
+        formatted_brightness = self.format_order_hex(brightness_12bit)
         command = bytes.fromhex(f"5A0301{formatted_brightness}")
         await self._write(command)
+        self._brightness = intensity
 
     @retry_bluetooth_connection_error
     async def set_effect_speed(self, value: int):
