@@ -323,10 +323,9 @@ class IllumiInstance:
 
     @retry_bluetooth_connection_error
     async def set_brightness(self, intensity: int):
-        brightness = max(0, min(brightness, 255))  # Clamp to 0–255
-    
+
     # Scale brightness to 12-bit range (0–4096)
-        brightness_12bit = int(brightness * 4096 / 255)
+        brightness_12bit = int(intensity * 4096 / 255)
     
     # Split the 12-bit value into two bytes (high and low)
         brightness_high = (brightness_12bit >> 8) & 0xFF  # Upper 8 bits
