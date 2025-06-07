@@ -70,7 +70,7 @@ TURN_ON_CMD = [[0x5A, 0x01, 0x02, 0x01]]
 TURN_OFF_CMD = [[0x5A, 0x01, 0x02, 0x00]]
 
 MIN_COLOR_TEMPS_K = [1000]
-MAX_COLOR_TEMPS_K = [6500]
+MAX_COLOR_TEMPS_K = [40000]
 
 DEFAULT_ATTEMPTS = 3
 #DISCONNECT_DELAY = 120
@@ -317,18 +317,7 @@ class IllumiInstance:
 
     @retry_bluetooth_connection_error
     async def set_color_temp_kelvin(self, value: int, brightness: int):
-        # White colours are represented by colour temperature percentage from 0x0 to 0x64 from warm to cool
-        # Warm (0x0) is only the warm white LED, cool (0x64) is only the white LED and then a mixture between the two
         self._color_temp_kelvin = value
-        """ if value < self._min_color_temp_kelvin:
-            value = self._min_color_temp_kelvin
-        if value > self._max_color_temp_kelvin:
-            value = self._max_color_temp_kelvin
-        color_temp_percent = int(((value - self._min_color_temp_kelvin) * 100) / (self._max_color_temp_kelvin - self._min_color_temp_kelvin))
-        if brightness is None:
-            brightness = self._brightness
-        brightness_percent = int(brightness * 100 / 255) 
-        await self._write([0x7e, 0x00, 0x05, 0x02, color_temp_percent, brightness_percent, 0x00, 0x00, 0xef]) """
         if brightness is None:
             brightness = self._brightness
         formatted_white = self.format_order_hex(value)
@@ -342,14 +331,6 @@ class IllumiInstance:
         r, g, b = rgb
         await self._write([0x5a, 0x07, 0x01, r, g, b ]);
         self._rgb_color = rgb 
-
-    #@DeprecationWarning
-    #@retry_bluetooth_connection_error
-    #async def set_white(self, intensity: int):
-    #    formatted_white = self.format_order_hex(intensity)
-    #    command = bytes.fromhex(f"5A0601{formatted_white}")
-    #    await self._write(command)
-    #    self._brightness = intensity
 
     @retry_bluetooth_connection_error
     async def set_brightness(self, intensity: int):

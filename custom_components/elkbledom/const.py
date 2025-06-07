@@ -4,6 +4,9 @@ DOMAIN = "illumi"
 CONF_RESET = "reset"
 CONF_DELAY = "delay"
 
+# https://api.lxillumi.com/v1/device/sceness/?language=en&model=DMRRBA-007
+#{"code": 200, "msg": "success", "data": [{"id": 297, "name": "Auto", "instruction": "00"}, {"id": 298, "name": "Flash", "instruction": "01"}, {"id": 299, "name": "Breath", "instruction": "06"}, {"id": 300, "name": "Bolt", "instruction": "07"}, {"id": 301, "name": "Candle", "instruction": "08"}, {"id": 302, "name": "Ambulance", "instruction": "09"}, {"id": 303, "name": "RGB Fade", "instruction": "02"}, {"id": 304, "name": "Rainbow Fade", "instruction": "03"}, {"id": 305, "name": "RGB Jump", "instruction": "04"}, {"id": 306, "name": "Rainbow Jump", "instruction": "05"}]}
+
 class EFFECTS (Enum):
     none = 0x00
     flash = 0x01
