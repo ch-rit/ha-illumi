@@ -5,6 +5,7 @@ CONF_RESET = "reset"
 CONF_DELAY = "delay"
 
 class EFFECTS (Enum):
+    none = 0x00
     flash = 0x01
     breath = 0x06
     colt = 0x07
@@ -15,7 +16,8 @@ class EFFECTS (Enum):
     rgb_jump = 0x04
     rainbow_jump = 0x05
 
-EFFECTS_list = ['flash',
+EFFECTS_list = ['none',
+    'flash',
     'breath',
     'colt',
     'candle',
