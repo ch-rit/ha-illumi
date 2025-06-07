@@ -365,7 +365,8 @@ class IllumiInstance:
 
     @retry_bluetooth_connection_error
     async def set_effect_speed(self, value: int):
-        await self._write([0x5A, 0x04, 0x04, value])
+        calculated_speed = int((value / 100) * 255)  # Convert percentage to 0-255 range
+        await self._write([0x5A, 0x04, 0x04, calculated_speed])
         self._effect_speed = value
 
     @retry_bluetooth_connection_error
