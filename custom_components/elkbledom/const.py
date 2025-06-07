@@ -15,15 +15,15 @@ class EFFECTS (Enum):
     rgb_jump = 0x04
     rainbow_jump = 0x05
 
-EFFECTS_list = ['Flash',
-    'Breath',
-    'Colt',
-    'Candle',
-    'Ambulance',
-    'RGB Fade',
-    'Rainbow Fade',
-    'RGB Jump',
-    'Rainbow Jump'
+EFFECTS_list = ['flash',
+    'breath',
+    'colt',
+    'candle',
+    'ambulance',
+    'rgb_fade',
+    'rainbow_fade',
+    'rgb_jump',
+    'rainbow_jump'
     ]
 
 class WEEK_DAYS (Enum):
