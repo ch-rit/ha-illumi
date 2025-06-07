@@ -5,51 +5,25 @@ CONF_RESET = "reset"
 CONF_DELAY = "delay"
 
 class EFFECTS (Enum):
-    jump_red_green_blue = 0x87
-    jump_red_green_blue_yellow_cyan_magenta_white = 0x88
-    crossfade_red = 0x8b
-    crossfade_green = 0x8c
-    crossfade_blue = 0x8d
-    crossfade_yellow = 0x8e
-    crossfade_cyan = 0x8f
-    crossfade_magenta = 0x90
-    crossfade_white = 0x91
-    crossfade_red_green = 0x92
-    crossfade_red_blue = 0x93
-    crossfade_green_blue = 0x94
-    crossfade_red_green_blue = 0x89
-    crossfade_red_green_blue_yellow_cyan_magenta_white = 0x8a
-    blink_red = 0x96
-    blink_green = 0x97
-    blink_blue = 0x98
-    blink_yellow = 0x99
-    blink_cyan = 0x9a
-    blink_magenta = 0x9b
-    blink_white = 0x9c
-    blink_red_green_blue_yellow_cyan_magenta_white = 0x95
+    flash = 0x01
+    breath = 0x06
+    colt = 0x07
+    candle = 0x08
+    ambulance = 0x09
+    rgb_fade = 0x02
+    rainbow_fade = 0x03
+    rgb_jump = 0x04
+    rainbow_jump = 0x05
 
-EFFECTS_list = ['jump_red_green_blue',
-    'jump_red_green_blue_yellow_cyan_magenta_white',
-    'crossfade_red',
-    'crossfade_green',
-    'crossfade_blue',
-    'crossfade_yellow',
-    'crossfade_cyan',
-    'crossfade_magenta',
-    'crossfade_white',
-    'crossfade_red_green',
-    'crossfade_red_blue',
-    'crossfade_green_blue',
-    'crossfade_red_green_blue',
-    'crossfade_red_green_blue_yellow_cyan_magenta_white',
-    'blink_red',
-    'blink_green',
-    'blink_blue',
-    'blink_yellow',
-    'blink_cyan',
-    'blink_magenta',
-    'blink_white',
-    'blink_red_green_blue_yellow_cyan_magenta_white'
+EFFECTS_list = ['Flash',
+    'Breath',
+    'Colt',
+    'Candle',
+    'Ambulance',
+    'RGB Fade',
+    'Rainbow Fade',
+    'RGB Jump',
+    'Rainbow Jump'
     ]
 
 class WEEK_DAYS (Enum):
