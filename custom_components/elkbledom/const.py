@@ -6,6 +6,8 @@ CONF_DELAY = "delay"
 
 # https://api.lxillumi.com/v1/device/sceness/?language=en&model=DMRRBA-007
 #{"code": 200, "msg": "success", "data": [{"id": 297, "name": "Auto", "instruction": "00"}, {"id": 298, "name": "Flash", "instruction": "01"}, {"id": 299, "name": "Breath", "instruction": "06"}, {"id": 300, "name": "Bolt", "instruction": "07"}, {"id": 301, "name": "Candle", "instruction": "08"}, {"id": 302, "name": "Ambulance", "instruction": "09"}, {"id": 303, "name": "RGB Fade", "instruction": "02"}, {"id": 304, "name": "Rainbow Fade", "instruction": "03"}, {"id": 305, "name": "RGB Jump", "instruction": "04"}, {"id": 306, "name": "Rainbow Jump", "instruction": "05"}]}
+# https://api.lxillumi.com/v1/device/voices/?language=en&model=DMRRBA-007
+#{"code": 200, "msg": "success", "data": [{"id": 149, "name": "CLASSIC", "instruction": "01"}, {"id": 150, "name": "VOCAL", "instruction": "02"}, {"id": 151, "name": "POP", "instruction": "03"}, {"id": 152, "name": "ROCK", "instruction": "04"}]}
 
 class EFFECTS (Enum):
     none = 0x00
@@ -18,6 +20,10 @@ class EFFECTS (Enum):
     rainbow_fade = 0x03
     rgb_jump = 0x04
     rainbow_jump = 0x05
+    voice_classic = 0x01
+    voice_vocal = 0x02
+    voice_pop = 0x03
+    voice_rock = 0x04
 
 EFFECTS_list = ['none',
     'flash',
@@ -28,7 +34,11 @@ EFFECTS_list = ['none',
     'rgb_fade',
     'rainbow_fade',
     'rgb_jump',
-    'rainbow_jump'
+    'rainbow_jump',
+    'voice_classic',
+    'voice_vocal',
+    'voice_pop',
+    'voice_rock'
     ]
 
 class WEEK_DAYS (Enum):

@@ -136,7 +136,11 @@ class IllumiLight(LightEntity):
 
         if ATTR_EFFECT in kwargs and kwargs[ATTR_EFFECT] != self.effect:
             self._attr_effect = kwargs[ATTR_EFFECT]
-            await self._instance.set_effect(EFFECTS[kwargs[ATTR_EFFECT]].value)
+            if self._attr_effect.startswith("voice_"):
+                await self._instance.set_voice(EFFECTS[kwargs[ATTR_EFFECT]].value)
+            else:
+                await self._instance.set_effect(EFFECTS[kwargs[ATTR_EFFECT]].value)
+            
 
         self.async_write_ha_state()
 

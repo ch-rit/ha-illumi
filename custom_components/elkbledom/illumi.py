@@ -356,6 +356,11 @@ class IllumiInstance:
         self._effect = value
 
     @retry_bluetooth_connection_error
+    async def set_voice(self, value: int):
+        await self._write([0x5A, 0x09, 0x03, value])
+        self._effect = value
+
+    @retry_bluetooth_connection_error
     async def turn_on(self):
         #NOT NEEDED, self._write() call to self._ensure_connected()
         #await self._ensure_connected()
